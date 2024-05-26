@@ -21,7 +21,7 @@ export class MoviesListPage {
 
   handleClick() {
     if (this.search != '') {
-      this.loadMovies()
+      this.getMovies()
       this.search = ''
     }
     else {
@@ -30,7 +30,7 @@ export class MoviesListPage {
     }
   }
 
-  async loadMovies() {
+  async getMovies() {
     const response = await this.moviesService.get(this.search)
 
     if (response.Search === undefined){
@@ -38,7 +38,6 @@ export class MoviesListPage {
       this.message = 'No movies found with this name'
     } 
     else {
-      response.Search === null
       this.movies = response.Search
       console.log(this.movies)
     }
