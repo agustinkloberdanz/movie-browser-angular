@@ -9,8 +9,6 @@
     width: auto;
 }
 
-
-
 .message {
     color: red;
     width: auto
@@ -39,4 +37,13 @@ ion-header {
     position: relative;
     text-align: center;
     justify-content: center;
+}
+
+ion-toast{
+    display: flex;
+    align-items: center;
+}
+
+.search {
+    font-weight: bold;
 }

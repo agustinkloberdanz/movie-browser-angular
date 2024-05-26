@@ -20,6 +20,11 @@
   </ion-card-content>
 
   @if (movies.length > 0) {
+
+  <ion-card-subtitle>
+    Results for <span class="search">{{search}}</span>:
+  </ion-card-subtitle>
+
   <ion-list class="content">
     @for (movie of movies; track movie.imdbID) {
     <ion-item class="content-item">
@@ -28,7 +33,11 @@
           <ion-card-title>{{movie.Title}}</ion-card-title>
           <ion-card-subtitle>{{movie.Year}} - {{movie.Type}}</ion-card-subtitle>
         </ion-card-header>
-        <ion-card-content><img src={{movie.Poster}} alt={{movie.Title}}></ion-card-content>
+        <ion-card-content>
+          <img id="{{movie.imdbID}}-img" src={{movie.Poster}} alt={{movie.Title}}>
+          <ion-toast message="{{movie.Title}} - {{movie.Year}}" duration="2000"
+            trigger="{{movie.imdbID}}-img"></ion-toast>
+        </ion-card-content>
       </ion-card>
     </ion-item>
     }
