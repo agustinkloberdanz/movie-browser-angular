@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonImg, IonCard, IonCardHeader, IonCardSubtitle, IonCardContent, IonCardTitle, IonInput, IonButton, IonAlert, IonToast } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonImg, IonCard, IonCardHeader, IonCardSubtitle, IonCardContent, IonCardTitle, IonInput, IonButton, IonAlert, IonToast, IonSearchbar } from '@ionic/angular/standalone';
 import { Movie, MoviesListService } from '../services/movies-list.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { Movie, MoviesListService } from '../services/movies-list.service';
   templateUrl: './movies-list.page.html',
   styleUrls: ['./movies-list.page.scss'],
   standalone: true,
-  imports: [IonToast, IonAlert, IonButton, IonInput, IonCardTitle, IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonImg, IonLabel, IonItem, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonSearchbar, IonToast, IonAlert, IonButton, IonInput, IonCardTitle, IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonImg, IonLabel, IonItem, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class MoviesListPage {
 
@@ -17,7 +17,7 @@ export class MoviesListPage {
   movies: Movie[] = []
   message = ''
 
-  moviesService = inject(MoviesListService)
+  constructor(private moviesService: MoviesListService) { }
 
   handleClick() {
     if (this.search != '') {
@@ -29,17 +29,30 @@ export class MoviesListPage {
     }
   }
 
-  async getMovies() {
-    const response = await this.moviesService.get(this.search)
+  async handleChange(event: any) {
+    const movie = event.target.value
+    this.search = movie
 
-    if (response.Search === undefined) {
+    if (movie && movie.trim() != '') {
+      return this.getMovies()
+    } else {
       this.movies = []
-      this.message = 'No movies found with this name'
+      this.message = 'The movie name is required'
     }
-    else {
-      this.movies = response.Search
-      console.log(this.movies)
-    }
+  }
+
+  async getMovies() {
+    await this.moviesService.get(this.search).subscribe(res => {
+      if (res.Response === 'False') {
+        this.movies = []
+        this.message = res.Error
+      } else {
+        const response = res.Search
+        this.movies = response
+      }
+      console.log(res)
+    })
+
   }
 
 
