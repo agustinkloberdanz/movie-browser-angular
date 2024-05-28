@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonImg, IonCard, IonCardHeader, IonCardSubtitle, IonCardContent, IonCardTitle, IonInput, IonButton, IonAlert, IonToast, IonSearchbar } from '@ionic/angular/standalone';
-import { Movie, MoviesListService } from '../services/movies-list.service';
+import { Movie, MoviesListService } from '../../services/movies-list.service';
 
 @Component({
   selector: 'app-movies-list',
@@ -20,7 +20,7 @@ export class MoviesListPage {
   constructor(private moviesService: MoviesListService) { }
 
   handleClick() {
-    if (this.search != '') {
+    if (this.search !== '') {
       this.getMovies()
     }
     else {

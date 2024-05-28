@@ -10,8 +10,6 @@ export interface Movie {
   Poster: string;
 }
 
-type ApiResponse = { Search: Movie[] }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +22,6 @@ export class MoviesListService {
 
   public get(search: string): Observable<any> {
     return this.http.get(this.URL + search)
-
   }
 
 }

@@ -12,9 +12,7 @@
   </ion-header>
 
   <ion-card-content class="search-content">
-    <!-- <ion-input class="search-input" [(ngModel)]="search" placeholder="Avengers, The Matrix, Titanic ..."></ion-input> -->
-
-    <ion-searchbar (input)="handleChange($event)" class="search-input" animated
+    <ion-searchbar (ionChange)="handleChange($event)" class="search-input" animated
       placeholder="Avengers, The Matrix, Titanic ..."></ion-searchbar>
     <ion-button class="search-button" (click)="handleClick()">Search</ion-button>
     @if (movies.length === 0) {
@@ -23,11 +21,6 @@
   </ion-card-content>
 
   @if (movies.length > 0) {
-
-  <!-- <ion-card-subtitle>
-    Results for <span class="search">{{search}}</span>:
-  </ion-card-subtitle> -->
-
   <ion-list class="content">
     @for (movie of movies; track movie.imdbID) {
     <ion-item class="content-item">
