@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonImg, IonCard, IonCardHeader, IonCardSubtitle, IonCardContent, IonCardTitle, IonInput, IonButton, IonAlert, IonToast, IonSearchbar, IonProgressBar } from '@ionic/angular/standalone';
 import { Movie, MoviesListService } from '../../services/movies-list.service';
+import { LoadingController } from '@ionic/angular'
 
 @Component({
   selector: 'app-movies-list',
@@ -16,26 +17,26 @@ export class MoviesListPage {
   movies: Movie[] = []
   message = ''
 
-  constructor(private moviesService: MoviesListService) { }
+  constructor(
+    private moviesService: MoviesListService,
+    public loadingController: LoadingController
+  ) { }
 
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Searching...',
+      duration: 1500,
+    })
 
-  async handleClick() {
+    loading.present();
+  }
+
+  async handleSearch() {
     const movie = this.search
 
     if (movie && movie.trim() != '') {
-      return this.getMovies()
-    } else {
-      this.movies = []
-      this.message = 'The movie name is required'
-    }
-  }
-
-  async handleChange(event: any) {
-    const movie = event.target.value
-    this.search = movie
-
-    if (movie && movie.trim() != '') {
-      return this.getMovies()
+      this.showLoading()
+      setTimeout(() => this.getMovies(), 1500)
     } else {
       this.movies = []
       this.message = 'The movie name is required'

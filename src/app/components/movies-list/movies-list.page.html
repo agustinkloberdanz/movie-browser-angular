@@ -12,9 +12,9 @@
   </ion-header>
 
   <ion-card-content class="search-content">
-    <ion-searchbar [(ngModel)]="search" (ionChange)="handleChange($event)" class="search-input" animated
+    <ion-searchbar [(ngModel)]="search" (ionChange)="handleSearch()" class="search-input" animated
       placeholder="Avengers, The Matrix, Titanic ..."></ion-searchbar>
-    <ion-button [disabled]="search.trim() === ''" class="search-button" (click)="handleClick()">Search</ion-button>
+    <ion-button [disabled]="search.trim() === ''" class="search-button" (click)="handleSearch()">Search</ion-button>
     @if (movies.length === 0) {
     <p class="message">{{message}}</p>
     }
