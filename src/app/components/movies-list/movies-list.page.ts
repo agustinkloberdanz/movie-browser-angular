@@ -25,7 +25,7 @@ export class MoviesListPage {
   async showLoading() {
     const loading = await this.loadingController.create({
       message: 'Searching...',
-      duration: 1500,
+      duration: 1500
     })
 
     loading.present();

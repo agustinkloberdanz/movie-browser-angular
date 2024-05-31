@@ -6,7 +6,7 @@
 }
 
 .search-input {
-    width: auto;
+    width: auto-fit;
 }
 
 .message {
@@ -42,8 +42,4 @@ ion-header {
 ion-toast{
     display: flex;
     align-items: center;
-}
-
-.search {
-    font-weight: bold;
 }
